@@ -7,3 +7,4 @@ artifacts/**/application*.yml
 artifacts/**/configs/**
 artifacts/**/configs/
 artifacts/**/application*.yml
+artifacts/**/configs/
