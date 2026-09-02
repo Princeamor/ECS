@@ -1,0 +1,14 @@
+System.register(["./@antv-legacy-5cb6425b.js"],(function(n,t){"use strict";var r;return{setters:[n=>{r=n.g}],execute:function(){var t={exports:{}},i={exports:{}};!function(n){var t=n.exports;n.exports.isNumber=function(n){return"number"==typeof n},n.exports.findMin=function(n){if(0===n.length)return 1/0;for(var t=n[0],r=1;r<n.length;r++)t=Math.min(t,n[r]);return t},n.exports.findMax=function(n){if(0===n.length)return-1/0;for(var t=n[0],r=1;r<n.length;r++)t=Math.max(t,n[r]);return t},n.exports.findMinMulti=function(n){for(var r=t.findMin(n[0]),i=1;i<n.length;i++)r=Math.min(r,t.findMin(n[i]));return r},n.exports.findMaxMulti=function(n){for(var r=t.findMax(n[0]),i=1;i<n.length;i++)r=Math.max(r,t.findMax(n[i]));return r},n.exports.inside=function(n,t,r){return n<=r&&r<=t}}(i);var e=i.exports;!function(n){var t=Math.log(2),r=n.exports,i=e;// Triangle
+function a(n){return 1-Math.abs(n)}
+/**
+      	 * Get min and max value for the pdf, covering all arr data range while respecting options' data
+      	 * @param arr
+      	 * @param options
+      	 * @returns {*}
+      	 */n.exports.getUnifiedMinMax=function(n,t){return r.getUnifiedMinMaxMulti([n],t)},n.exports.getUnifiedMinMaxMulti=function(n,t){t=t||{};var r=!1,e=!1,a=i.isNumber(t.width)?t.width:2,f=i.isNumber(t.size)?t.size:50,u=i.isNumber(t.min)?t.min:(r=!0,i.findMinMulti(n)),o=i.isNumber(t.max)?t.max:(e=!0,i.findMaxMulti(n)),s=(o-u)/(f-1);// Relax?
+return r&&(u-=2*a*s),e&&(o+=2*a*s),{min:u,max:o}},n.exports.create=function(n,t){if(t=t||{},!n||0===n.length)return[];var e=i.isNumber(t.size)?t.size:50,f=i.isNumber(t.width)?t.width:2,u=r.getUnifiedMinMax(n,{size:e,width:f,min:t.min,max:t.max}),o=u.min,s=u.max-o,x=s/(e-1);if(0===s)// Special case...
+return[{x:o,y:1}];// Good to go
+for(var h=[],M=0;M<e;M++)h.push({x:o+M*x,y:0});var c=function(n,t){for(var r={},i=0,e=-t;e<=t;e++)i+=n(e/t),r[e]=i;return r}(a,f),l=c[f],m=c[f-1]-c[f-2],g=0;n.forEach((function(n){var t=function(n){return Math.floor((n-o)/x)}(n);// Totally outside?
+if(!(t+f<0||t-f>=h.length)){var r=Math.max(t-f,0),e=t,a=Math.min(t+f,h.length-1),u=r-(t-f),s=t+f-a,M=c[-f-1+u]||0,d=c[-f-1+s]||0,p=l/(l-M-d);u>0&&(g+=p*(u-1)*m);// Add grads
+var v=Math.max(0,t-f+1);i.inside(0,h.length-1,v)&&(h[v].y+=1*p*m),i.inside(0,h.length-1,e+1)&&(h[e+1].y-=2*p*m),i.inside(0,h.length-1,a+1)&&(h[a+1].y+=1*p*m)}}));var d=g,p=0,v=0;return h.forEach((function(n){p+=n.y,d+=p,n.y=d,v+=d})),// Normalize
+v>0&&h.forEach((function(n){n.y/=v})),h},n.exports.getExpectedValueFromPdf=function(n){if(n&&0!==n.length){var t=0;return n.forEach((function(n){t+=n.x*n.y})),t}},n.exports.getXWithLeftTailArea=function(n,t){if(n&&0!==n.length){for(var r=0,i=0,e=0;e<n.length&&(i=e,!((r+=n[e].y)>=t));e++);return n[i].x}},n.exports.getPerplexity=function(n){if(n&&0!==n.length){var r=0;return n.forEach((function(n){var t=Math.log(n.y);isFinite(t)&&(r+=n.y*t)})),r=-r/t,Math.pow(2,r)}}}(t),n("p",r(t.exports))}}}));

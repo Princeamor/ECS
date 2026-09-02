@@ -1,0 +1,1 @@
+import{r as a}from"./index-5deeceda.js";const s={getDataList:s=>a({url:"/api/wms/dashboard/"+s,method:"get",isWareId:!0}),getDashboard:(s,t)=>a({url:"/api/wes/dashboard/"+s+"/"+t,method:"get"})};export{s as a};

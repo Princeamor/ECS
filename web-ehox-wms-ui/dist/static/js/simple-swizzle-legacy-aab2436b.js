@@ -1,0 +1,2 @@
+System.register(["./is-arrayish-legacy-fd6d9ccf.js"],(function(r,t){"use strict";var e;return{setters:[r=>{e=r.i}],execute:function(){var t={exports:{}},n=e,s=Array.prototype.concat,o=Array.prototype.slice,a=t.exports=function(r){for(var t=[],e=0,a=r.length;e<a;e++){var c=r[e];n(c)?// http://jsperf.com/javascript-array-concat-vs-push/98
+t=s.call(t,o.call(c)):t.push(c)}return t};a.wrap=function(r){return function(){return r(a(arguments))}},r("s",t.exports)}}}));

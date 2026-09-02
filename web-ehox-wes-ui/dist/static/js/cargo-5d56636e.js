@@ -1,0 +1,1 @@
+import{r as a}from"./index-5deeceda.js";const t={getDataList:t=>a({url:"/api/wms/stock/materialPage",method:"get",params:{...t},isWareId:!0}),materialDetailList:t=>a({url:"/api/wms/stock/materialDetailList",method:"get",params:{...t},isWareId:!0}),sumStockNumber:t=>a({url:"/api/wms/stock/sumStockNumber",method:"get",params:{...t},isWareId:!0})};export{t as c};

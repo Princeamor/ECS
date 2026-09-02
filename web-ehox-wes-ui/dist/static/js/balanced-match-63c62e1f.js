@@ -1,0 +1,1 @@
+var t=function(t,s,r){for(var e=0,n={},a=0;a<r.length;a++)if(t==r.substr(a,t.length))"start"in n||(n.start=a),e++;else if(s==r.substr(a,s.length)&&"start"in n&&! --e)return n.end=a,n.pre=r.substr(0,n.start),n.body=n.end-n.start>1?r.substring(n.start+t.length,n.end):"",n.post=r.slice(n.end+s.length),n};export{t as b};

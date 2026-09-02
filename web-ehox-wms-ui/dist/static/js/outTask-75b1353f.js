@@ -1,0 +1,1 @@
+import{r as a}from"./index-286c3379.js";const s={getDataList:s=>a({url:"/api/wms/stockTask/outTaskPage",method:"get",params:{...s},isWareId:!0}),infoObj:s=>a({url:"/api/wms/stockTask/detail/"+s,method:"get",isWareId:!0}),revokeOutTask:s=>a({url:"/api/wms/stockTask/revokeOutTask/"+s,method:"GET",isWareId:!0})};export{s as a};

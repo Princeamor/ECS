@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 日志存放路径 -->
+
+    <!--<property name="log.path" value="D:/work/ehox/chitu_v2/logs" />-->
+
+    <!--<property name="log.path" value="/opt/apps/logs" />-->
+
+    <!--<property name="log.path" value="${logging.file.path}" />-->
+
+    <!--<property name="log.path" value="${logging.file.path:-newlogs}"/>-->
+
+    <springProperty scope="context" name="log.path" source="logging.file.path" defaultValue="newlogs"/>
+
+    <!-- 日志输出格式 -->
+    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 系统日志输出 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-info.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-error.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/sys-error.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 用户访问日志输出  -->
+    <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-user.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.path}/sys-user.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="task_brain" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/task_brain.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.path}/task_brain.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="car_command" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/car_command.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.path}/car_command.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!--车辆日志记录 SiftingAppender 是核心 -->
+    <appender name="car_log" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>carCode</key>
+            <defaultValue>""</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE_${carCode}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <!-- ⚠️ 不要写 <file> 标签，让 fileNamePattern 同时决定当前写入和归档路径 -->
+                <encoder>
+                    <pattern>%d{HH:mm:ss.SSS} - [%msg]%n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <!-- 当前写入和归档都使用这个模式 -->
+                    <fileNamePattern>${log.path}/%d{yyyy/MM/dd}/chitu_log_${carCode}.log</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <!--自定义文件名称 SiftingAppender 是核心 -->
+    <appender name="file_log" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>fileName</key>
+            <defaultValue>""</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE_${fileName}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <!-- ⚠️ 不要写 <file> 标签，让 fileNamePattern 同时决定当前写入和归档路径 -->
+                <encoder>
+                    <pattern>${log.pattern}</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <!-- 当前写入和归档都使用这个模式 -->
+                    <fileNamePattern>${log.path}/%d{yyyy/MM/dd}/${fileName}.log</fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <!-- 异步包装 SiftingAppender，提升性能（推荐单独使用） -->
+    <appender name="ASYNC_FILE_LOG" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="file_log"/>
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>false</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <appender name="ASYNC_CAR_LOG" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="car_log"/>
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <includeCallerData>false</includeCallerData>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!--系统操作日志-->
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="file_info" />
+        <appender-ref ref="file_error" />
+    </root>
+
+    <!--系统用户操作日志-->
+    <logger name="sys-user" level="warn">
+        <appender-ref ref="sys-user"/>
+    </logger>
+
+    <!--任务调度日志-->
+    <logger name="task_brain" level="info">
+        <appender-ref ref="task_brain"/>
+<!--        <appender-ref ref="file_info" />-->
+<!--        <appender-ref ref="file_error" />-->
+    </logger>
+
+    <logger name="car_command" level="warn">
+<!--        <appender-ref ref="console" />-->
+        <appender-ref ref="car_command"/>
+    </logger>
+
+    <logger name="car_log" level="info" additivity="false">
+        <appender-ref ref="ASYNC_CAR_LOG"/>
+    </logger>
+
+    <logger name="file_log" level="info" additivity="false">
+        <appender-ref ref="ASYNC_FILE_LOG"/>
+    </logger>
+
+
+
+</configuration> 

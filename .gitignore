@@ -1,0 +1,9 @@
+*.zip
+*.gz
+*.jar
+*.sql
+*.sql.gz
+artifacts/**/application*.yml
+artifacts/**/configs/**
+artifacts/**/configs/
+artifacts/**/application*.yml
