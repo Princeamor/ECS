@@ -1,0 +1,16 @@
+System.register([],(function(r,t){"use strict";return{execute:function(){r({a:function(r,t,e){if(e||2===arguments.length)for(var o,n=0,a=t.length;n<a;n++)!o&&n in t||(o||(o=Array.prototype.slice.call(t,0,n)),o[n]=t[n]);return r.concat(o||Array.prototype.slice.call(t))},b:function(r,e){if("function"!=typeof e&&null!==e)throw new TypeError("Class extends value "+String(e)+" is not a constructor or null");function o(){this.constructor=r}t(r,e),r.prototype=null===e?Object.create(e):(o.prototype=e.prototype,new o)},c:function(r,t){var e="function"==typeof Symbol&&r[Symbol.iterator];if(!e)return r;var o,n,a=e.call(r),i=[];try{for(;(void 0===t||t-- >0)&&!(o=a.next()).done;)i.push(o.value)}catch(c){n={error:c}}finally{try{o&&!o.done&&(e=a.return)&&e.call(a)}finally{if(n)throw n.error}}return i}/** @deprecated */,d:function(r,t){var e={};for(var o in r)Object.prototype.hasOwnProperty.call(r,o)&&t.indexOf(o)<0&&(e[o]=r[o]);if(null!=r&&"function"==typeof Object.getOwnPropertySymbols){var n=0;for(o=Object.getOwnPropertySymbols(r);n<o.length;n++)t.indexOf(o[n])<0&&Object.prototype.propertyIsEnumerable.call(r,o[n])&&(e[o[n]]=r[o[n]])}return e},e:function(r,t,e,o){if("a"===e&&!o)throw new TypeError("Private accessor was defined without a getter");if("function"==typeof t?r!==t||!o:!t.has(r))throw new TypeError("Cannot read private member from an object whose class did not declare it");return"m"===e?o:"a"===e?o.call(r):o?o.value:t.get(r)},f:function(r){var t="function"==typeof Symbol&&Symbol.iterator,e=t&&r[t],o=0;if(e)return e.call(r);if(r&&"number"==typeof r.length)return{next:function(){return r&&o>=r.length&&(r=void 0),{value:r&&r[o++],done:!r}}};throw new TypeError(t?"Object is not iterable.":"Symbol.iterator is not defined.")},g:function(){for(var r=0,t=0,e=arguments.length;t<e;t++)r+=arguments[t].length;var o=Array(r),n=0;for(t=0;t<e;t++)for(var a=arguments[t],i=0,c=a.length;i<c;i++,n++)o[n]=a[i];return o}});
+/******************************************************************************
+      Copyright (c) Microsoft Corporation.
+
+      Permission to use, copy, modify, and/or distribute this software for any
+      purpose with or without fee is hereby granted.
+
+      THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+      REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+      AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+      INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+      LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+      OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+      PERFORMANCE OF THIS SOFTWARE.
+      ***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */var t=function(r,e){return t=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(r,t){r.__proto__=t}||function(r,t){for(var e in t)Object.prototype.hasOwnProperty.call(t,e)&&(r[e]=t[e])},t(r,e)},e=r("_",(function(){return r("_",e=Object.assign||function(r){for(var t,e=1,o=arguments.length;e<o;e++)for(var n in t=arguments[e])Object.prototype.hasOwnProperty.call(t,n)&&(r[n]=t[n]);return r}),e.apply(this,arguments)}));"function"==typeof SuppressedError&&SuppressedError}}}));

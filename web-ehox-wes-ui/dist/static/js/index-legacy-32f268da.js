@@ -1,0 +1,1 @@
+System.register(["./index-legacy-08de4a10.js"],(function(e,t){"use strict";var a;return{setters:[e=>{a=e.r}],execute:function(){e("a",{getDataList:e=>a({url:"/api/wms/dashboard/"+e,method:"get",isWareId:!0}),getDashboard:(e,t)=>a({url:"/api/wes/dashboard/"+e+"/"+t,method:"get"})})}}}));

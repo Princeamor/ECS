@@ -1,0 +1,1 @@
+import{r as e}from"./index-286c3379.js";const t={getDataList:t=>e({url:"/api/menu/list",method:"get",params:{...t}}),menuDetail:t=>e({url:"/api/menu/detail/"+t,method:"get"}),menuAdd:t=>e({url:"/api/menu/add",method:"post",data:t}),menuEdit:t=>e({url:"/api/menu/update",method:"PUT",data:t}),menuDelete:t=>e({url:"/api/menu/delete/"+t,method:"DELETE"})};export{t as a};

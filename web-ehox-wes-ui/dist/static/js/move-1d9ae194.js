@@ -1,0 +1,1 @@
+import{r as a}from"./index-5deeceda.js";const e={getDataList:e=>a({url:"/api/wms/stockTask/moveTaskPage",method:"get",params:{...e},isWareId:!0}),infoObj:e=>a({url:"/api/wms/stockTask/moveDetail/"+e,method:"get",isWareId:!0}),revokeMoveTask:e=>a({url:"/api/wms/stockTask/revokeMoveTask/"+e,method:"GET",isWareId:!0})};export{e as a};

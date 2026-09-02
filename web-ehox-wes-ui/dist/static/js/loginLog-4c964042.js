@@ -1,0 +1,1 @@
+import{r as e}from"./index-5deeceda.js";const t={getDataList:t=>e({url:"/api/login/log/page",method:"get",params:{...t}}),infoObj:t=>e({url:"/api/login/log/detail/"+t,method:"get"}),delObj:t=>e({url:"/api/login/log/delete/"+t,method:"DELETE"}),batchDelete:t=>e({url:"/api/login/log/batchDelete",method:"DELETE",data:t})};export{t as a};
