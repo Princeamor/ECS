@@ -1,0 +1,7 @@
+{
+  "name": "ecs-console-reconstruction",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": { "start": "node --watch server.mjs", "test": "node --test test/*.test.mjs" }
+}
