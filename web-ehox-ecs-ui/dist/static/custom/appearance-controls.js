@@ -39,7 +39,20 @@
     if(!root||!root.querySelectorAll)return;
     var sidebar=document.querySelector('.sidebar-container');
     var account=document.querySelector('.avatar-container');
-    if(sidebar&&account&&!sidebar.contains(account)){account.classList.add('ecs-sidebar-account');sidebar.appendChild(account)}
+    if(!sidebar||!account)return;
+    account.style.display='none';
+    if(sidebar.querySelector('.ecs-sidebar-account-actions'))return;
+    var actions=document.createElement('nav');
+    actions.className='ecs-sidebar-account-actions';
+    actions.innerHTML='<button type="button" data-action="profile">User settings</button><button type="button" data-action="layout">Layout settings</button><button type="button" data-action="logout">Sign out</button>';
+    actions.addEventListener('click',function(event){
+      var action=event.target.dataset.action;
+      if(!action)return;
+      if(action==='profile'){location.href='/user/profile';return}
+      if(action==='layout'){var handle=document.querySelector('.handle-button');if(handle)handle.click();return}
+      fetch('/prod-api/logout',{method:'POST',credentials:'same-origin'}).finally(function(){location.href='/login'});
+    });
+    sidebar.appendChild(actions);
   }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;
