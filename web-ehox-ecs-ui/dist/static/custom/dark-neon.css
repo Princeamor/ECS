@@ -14,3 +14,8 @@
 .drawer-container .drawer-title{font-size:18px!important;font-weight:700!important;text-shadow:0 0 8px rgba(255,255,255,.25)}
 .drawer-container .drawer-item{border-color:#3a4c68!important}
 .drawer-container hr,.setting-drawer hr{border-color:#3a4c68!important}
+/* Exact layout-settings label elements; compiled panel renders labels in spans. */
+.el-drawer .drawer-container[data-v-887043de] .drawer-title[data-v-887043de],
+.el-drawer .drawer-container[data-v-887043de] .drawer-item[data-v-887043de],
+.el-drawer .drawer-container[data-v-887043de] .drawer-item[data-v-887043de] > span{color:#fff!important;opacity:1!important;font-family:Inter,Arial,sans-serif!important;font-size:17px!important;font-weight:700!important;line-height:1.7!important;text-shadow:0 1px 2px #000,0 0 8px rgba(255,255,255,.18)!important}
+.el-drawer .drawer-container[data-v-887043de] .drawer-title[data-v-887043de]{font-size:19px!important}
