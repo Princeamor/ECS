@@ -1,5 +1,5 @@
 (function(){
-  var themeUrls=['/static/custom/dark-neon.css','/static/custom/modern.css'];
+  var themeUrls=['/static/custom/dark-neon.css','/static/custom/modern.css','/static/custom/login-black.css'];
   function moveThemesLast(){
     var head=document.head;
     themeUrls.forEach(function(url){
@@ -13,11 +13,6 @@
       if(!node.querySelector('.x6-graph-grid')) node.classList.add('neon-grid-fallback');
     });
   }
-  function refresh(root){moveThemesLast();addFallbackGrid(root||document)}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){refresh(document)});else refresh(document);
-  new MutationObserver(function(records){
-    var changed=records.some(function(record){return record.type==='childList'&&[].some.call(record.addedNodes,function(node){return node.tagName==='LINK'&&node.rel==='stylesheet'})});
-    if(changed) moveThemesLast();
-  }).observe(document.head,{childList:true});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){moveThemesLast();addFallbackGrid(document)});else{moveThemesLast();addFallbackGrid(document)}
   new MutationObserver(function(records){records.forEach(function(record){for(var i=0;i<record.addedNodes.length;i++)addFallbackGrid(record.addedNodes[i])})}).observe(document.documentElement,{childList:true,subtree:true});
 })();
