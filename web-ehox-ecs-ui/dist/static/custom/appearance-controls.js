@@ -27,10 +27,24 @@
       label.style.setProperty('text-shadow','0 1px 2px #000','important');
     });
   }
+  function translateSearchTitles(){
+    var host=document.querySelector('.header-search');
+    var component=host&&host.__vue__;
+    if(!component||!component.searchPool||!window.ecsTranslations)return false;
+    component.searchPool.forEach(function(item){item.title=item.title.map(function(title){return window.ecsTranslations[title]||title})});
+    if(component.initFuse)component.initFuse(component.searchPool);
+    return true;
+  }
+  function moveAccountMenu(root){
+    if(!root||!root.querySelectorAll)return;
+    var sidebar=document.querySelector('.sidebar-container');
+    var account=document.querySelector('.avatar-container');
+    if(sidebar&&account&&!sidebar.contains(account)){account.classList.add('ecs-sidebar-account');sidebar.appendChild(account)}
+  }
   function addControls(root){
-    if(!root||root.querySelector('.ecs-appearance-controls'))return;
-    var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
-    if(!drawer)return;
+    if(!root||document.querySelector('.ecs-appearance-controls'))return;
+    var workspace=document.querySelector('.app-main');
+    if(!workspace)return;
     var colors=load(), panel=document.createElement('section');
     panel.className='ecs-appearance-controls';
     panel.innerHTML='<h3>Interface appearance</h3><label>Background color <button type="button" class="ecs-color-trigger" data-color="background"></button></label><label>Text color <button type="button" class="ecs-color-trigger" data-color="text"></button></label><label>Highlight color <button type="button" class="ecs-color-trigger" data-color="highlight"></button></label>';
@@ -57,10 +71,11 @@
         trigger.parentNode.appendChild(popover);
       });
     });
-    drawer.insertBefore(panel,drawer.firstChild);
+    workspace.appendChild(panel);
   }
   apply(load());
-  function refresh(root){removeHoverText(root);forceLayoutLabels(root);addControls(root)}
+  function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);addControls(root)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){refresh(document)});else refresh(document);
+  var searchAttempts=0,searchTimer=setInterval(function(){if(translateSearchTitles()||++searchAttempts>20)clearInterval(searchTimer)},250);
   new MutationObserver(function(records){records.forEach(function(record){for(var i=0;i<record.addedNodes.length;i++){var node=record.addedNodes[i];if(node.nodeType===1)refresh(node)}})}).observe(document.documentElement,{childList:true,subtree:true});
 })();
