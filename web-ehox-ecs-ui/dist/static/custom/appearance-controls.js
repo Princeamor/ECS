@@ -56,8 +56,8 @@
   }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;
-    var workspace=document.querySelector('.app-main');
-    if(!workspace)return;
+    var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
+    if(!drawer)return;
     var colors=load(), panel=document.createElement('section');
     panel.className='ecs-appearance-controls';
     panel.innerHTML='<h3>Interface appearance</h3><label>Background color <button type="button" class="ecs-color-trigger" data-color="background"></button></label><label>Text color <button type="button" class="ecs-color-trigger" data-color="text"></button></label><label>Highlight color <button type="button" class="ecs-color-trigger" data-color="highlight"></button></label>';
@@ -84,7 +84,7 @@
         trigger.parentNode.appendChild(popover);
       });
     });
-    workspace.appendChild(panel);
+    drawer.insertBefore(panel,drawer.firstChild);
   }
   apply(load());
   function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);addControls(root)}
