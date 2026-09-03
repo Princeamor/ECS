@@ -7,7 +7,7 @@
 /* Keep top-navigation overflow choices readable and opening below the header. */
 .el-menu--popup-bottom-start{margin-top:6px!important}.el-menu--popup{background:#0d1422!important;border:1px solid #27a8ff!important;box-shadow:0 10px 28px rgba(0,0,0,.55),0 0 12px rgba(39,168,255,.2)!important}.el-menu--horizontal .el-menu .el-menu-item{background:#0d1422!important;color:#fff!important;min-width:220px}.el-menu--horizontal .el-menu .el-menu-item:hover,.el-menu--horizontal .el-menu .el-menu-item.is-active{background:#14243a!important;color:#39ff88!important}
 /* Track-It brand mark in the application shell. */
-.sidebar-logo-container{background-image:url('/static/img/trak-it-logo.png')!important;background-repeat:no-repeat!important;background-position:16px center!important;background-size:54px auto!important}.sidebar-logo-container .sidebar-logo{display:none!important}.sidebar-logo-container .sidebar-title{margin-left:58px!important}.sidebar-logo-container.collapse{background-position:center!important}.sidebar-logo-container.collapse .sidebar-title{display:none!important}
+.sidebar-logo-container{background-image:none!important}.sidebar-logo-container .sidebar-logo{display:none!important}.sidebar-logo-container .sidebar-title{margin-left:0!important;font-size:20px!important;font-weight:700!important}.sidebar-logo-container.collapse .sidebar-title{display:none!important}
 /* Layout settings drawer readability */
 .setting-drawer,.setting-drawer-content,.drawer-container{background:#0d1422!important;color:#fff!important}
 .setting-drawer-content .setting-drawer-title,.drawer-container .drawer-title,.drawer-container .drawer-item{color:#fff!important;font-size:16px!important;font-weight:600!important;line-height:1.65!important;letter-spacing:.01em}
