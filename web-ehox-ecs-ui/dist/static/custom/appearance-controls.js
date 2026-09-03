@@ -33,10 +33,29 @@
     if(!drawer)return;
     var colors=load(), panel=document.createElement('section');
     panel.className='ecs-appearance-controls';
-    panel.innerHTML='<h3>Interface appearance</h3><label>Background color <input type="color" data-color="background"></label><label>Text color <input type="color" data-color="text"></label><label>Highlight color <input type="color" data-color="highlight"></label>';
-    panel.querySelectorAll('input').forEach(function(input){
-      input.value=colors[input.dataset.color];
-      input.addEventListener('input',function(){colors[input.dataset.color]=input.value;save(colors)});
+    panel.innerHTML='<h3>Interface appearance</h3><label>Background color <button type="button" class="ecs-color-trigger" data-color="background"></button></label><label>Text color <button type="button" class="ecs-color-trigger" data-color="text"></button></label><label>Highlight color <button type="button" class="ecs-color-trigger" data-color="highlight"></button></label>';
+    panel.querySelectorAll('.ecs-color-trigger').forEach(function(trigger){
+      var color=trigger.dataset.color;
+      trigger.style.backgroundColor=colors[color];
+      trigger.setAttribute('aria-label','Choose '+color+' color');
+      trigger.addEventListener('click',function(){
+        var existing=panel.querySelector('.ecs-color-popover');
+        if(existing){existing.remove();return}
+        var popover=document.createElement('div');
+        popover.className='ecs-color-popover';
+        popover.innerHTML='<label>Hex color <input type="text" value="'+colors[color]+'" maxlength="7"></label><div class="ecs-color-swatches"></div>';
+        ['#070b14','#0d1422','#ffffff','#e8f0ff','#27a8ff','#39ff88','#ff4fd8','#ff3d5a'].forEach(function(value){
+          var swatch=document.createElement('button');
+          swatch.type='button';swatch.style.backgroundColor=value;swatch.setAttribute('aria-label',value);
+          swatch.addEventListener('click',function(){setColor(value)});popover.querySelector('.ecs-color-swatches').appendChild(swatch);
+        });
+        function setColor(value){
+          if(!/^#[0-9a-fA-F]{6}$/.test(value))return;
+          colors[color]=value;trigger.style.backgroundColor=value;popover.querySelector('input').value=value;save(colors);
+        }
+        popover.querySelector('input').addEventListener('change',function(){setColor(this.value)});
+        trigger.parentNode.appendChild(popover);
+      });
     });
     drawer.insertBefore(panel,drawer.firstChild);
   }
