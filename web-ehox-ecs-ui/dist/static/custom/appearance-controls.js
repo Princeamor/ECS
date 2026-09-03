@@ -50,7 +50,7 @@
       if(!action)return;
       if(action==='profile'){location.href='/user/profile';return}
       if(action==='layout'){var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store)store.dispatch('settings/changeSetting',{key:'showSettings',value:true});return}
-      fetch('/prod-api/logout',{method:'POST',credentials:'same-origin'}).finally(function(){location.href='/login'});
+      var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store){store.dispatch('LogOut').finally(function(){location.href='/login'})}else{location.href='/login'};
     });
     sidebar.appendChild(actions);
   }
