@@ -49,7 +49,7 @@
       var action=event.target.dataset.action;
       if(!action)return;
       if(action==='profile'){location.href='/user/profile';return}
-      if(action==='layout'){var handle=document.querySelector('.handle-button');if(handle)handle.click();return}
+      if(action==='layout'){var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store)store.dispatch('settings/changeSetting',{key:'showSettings',value:true});return}
       fetch('/prod-api/logout',{method:'POST',credentials:'same-origin'}).finally(function(){location.href='/login'});
     });
     sidebar.appendChild(actions);
