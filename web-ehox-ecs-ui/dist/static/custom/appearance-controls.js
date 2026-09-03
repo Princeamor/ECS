@@ -14,6 +14,19 @@
     if(root.matches&&root.matches('[title]'))root.removeAttribute('title');
     root.querySelectorAll('[title]').forEach(function(node){node.removeAttribute('title')});
   }
+  function forceLayoutLabels(root){
+    if(!root||!root.querySelectorAll)return;
+    var labels=[];
+    if(root.matches&&root.matches('.drawer-container .drawer-item > span,.drawer-container .drawer-title,.setting-drawer-content .setting-drawer-title'))labels.push(root);
+    labels=labels.concat([].slice.call(root.querySelectorAll('.drawer-container .drawer-item > span,.drawer-container .drawer-title,.setting-drawer-content .setting-drawer-title')));
+    labels.forEach(function(label){
+      label.style.setProperty('color','#ffffff','important');
+      label.style.setProperty('opacity','1','important');
+      label.style.setProperty('font-size','17px','important');
+      label.style.setProperty('font-weight','700','important');
+      label.style.setProperty('text-shadow','0 1px 2px #000','important');
+    });
+  }
   function addControls(root){
     if(!root||root.querySelector('.ecs-appearance-controls'))return;
     var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
@@ -28,7 +41,7 @@
     drawer.insertBefore(panel,drawer.firstChild);
   }
   apply(load());
-  function refresh(root){removeHoverText(root);addControls(root)}
+  function refresh(root){removeHoverText(root);forceLayoutLabels(root);addControls(root)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){refresh(document)});else refresh(document);
   new MutationObserver(function(records){records.forEach(function(record){for(var i=0;i<record.addedNodes.length;i++){var node=record.addedNodes[i];if(node.nodeType===1)refresh(node)}})}).observe(document.documentElement,{childList:true,subtree:true});
 })();
