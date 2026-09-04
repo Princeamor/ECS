@@ -76,8 +76,9 @@
       item.classList.add('ecs-layout-toggle');
       item.style.setProperty('grid-row',String(index+2),'important');
     });
-    [].slice.call(wrapper.querySelectorAll(':scope > .el-button')).forEach(function(button){
-      button.classList.add('ecs-layout-action');
+    var actions=[].slice.call(wrapper.querySelectorAll(':scope > .el-button'));
+    actions.forEach(function(button,index){
+      button.classList.add(index===0?'ecs-layout-save':'ecs-layout-reset');
       button.style.setProperty('grid-row','7','important');
     });
   }
