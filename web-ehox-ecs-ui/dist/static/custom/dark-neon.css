@@ -84,3 +84,12 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{padding:3px 0!important;min-height:31px;font-size:14px!important;line-height:1.25!important}
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-item>span{font-size:14px!important;line-height:1.25!important}
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{font-size:13px!important;padding:7px 14px!important}
+
+/* Keep every system toggle in a compact stack above Reset. */
+.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-rows:auto minmax(0,1fr) auto!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{align-self:start;margin:0!important;padding:2px 0!important;min-height:29px!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{grid-row:3!important}
+
+/* Explicit grid rows prevent Reset from occupying the toggle stack. */
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle{grid-column:2!important;align-self:start!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-action{grid-row:7!important;align-self:end!important}

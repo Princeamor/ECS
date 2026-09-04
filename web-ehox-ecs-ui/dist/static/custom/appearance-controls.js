@@ -67,6 +67,20 @@
     drawer.style.setProperty('right','auto','important');
     drawer.style.setProperty('margin-left','-140px','important');
   }
+  function organizeLayoutControls(root){
+    if(!root||!root.querySelector)return;
+    var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
+    var wrapper=drawer&&drawer.firstElementChild;
+    if(!wrapper)return;
+    [].slice.call(wrapper.querySelectorAll(':scope > .drawer-item')).forEach(function(item,index){
+      item.classList.add('ecs-layout-toggle');
+      item.style.setProperty('grid-row',String(index+2),'important');
+    });
+    [].slice.call(wrapper.querySelectorAll(':scope > .el-button')).forEach(function(button){
+      button.classList.add('ecs-layout-action');
+      button.style.setProperty('grid-row','7','important');
+    });
+  }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;
     var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
@@ -102,7 +116,7 @@
     if(theme)panel.appendChild(theme);
   }
   apply(load());
-  function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);placeLayoutDrawer(root);addControls(root)}
+  function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);placeLayoutDrawer(root);addControls(root);organizeLayoutControls(root)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){refresh(document)});else refresh(document);
   var searchAttempts=0,searchTimer=setInterval(function(){if(translateSearchTitles()||++searchAttempts>20)clearInterval(searchTimer)},250);
   window.addEventListener('resize',function(){placeLayoutDrawer(document)});
