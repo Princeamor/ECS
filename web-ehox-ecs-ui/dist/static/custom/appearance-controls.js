@@ -65,7 +65,8 @@
     drawer.classList.add('ecs-layout-settings-drawer');
     drawer.style.setProperty('left','50%','important');
     drawer.style.setProperty('right','auto','important');
-    drawer.style.setProperty('margin-left','-140px','important');
+    drawer.style.setProperty('margin-left','0','important');
+    drawer.style.setProperty('transform','translateX(-50%)','important');
   }
   function organizeLayoutControls(root){
     if(!root||!root.querySelector)return;
