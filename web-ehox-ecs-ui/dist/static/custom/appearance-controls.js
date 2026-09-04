@@ -98,6 +98,8 @@
       });
     });
     drawer.insertBefore(panel,drawer.firstChild);
+    var theme=drawer.querySelector('.setting-drawer-content');
+    if(theme)panel.appendChild(theme);
   }
   apply(load());
   function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);placeLayoutDrawer(root);addControls(root)}
