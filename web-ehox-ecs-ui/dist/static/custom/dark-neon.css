@@ -70,3 +70,17 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{margin:0!important;font-size:17px!important;text-align:left!important;text-transform:none!important}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-block-checbox{display:flex;gap:12px}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-item{padding:6px 0!important;min-height:36px}
+
+/* Dense workspace layout: fill the area from the sidebar to the right edge. */
+.el-drawer.ecs-layout-settings-drawer{left:280px!important;right:24px!important;width:auto!important;height:min(560px,calc(100vh - 150px))!important;margin-left:0!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);grid-template-rows:auto 1fr auto;column-gap:28px;row-gap:10px;padding:16px 20px}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title{font-size:19px!important;line-height:1.2!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls{gap:6px;padding:10px}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls h3{font-size:16px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls label{gap:4px;padding:5px 7px;font-size:12px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-title{margin:0 0 4px}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{font-size:14px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-item{padding:3px 0!important;min-height:30px;font-size:13px!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{padding:3px 0!important;min-height:31px;font-size:14px!important;line-height:1.25!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-item>span{font-size:14px!important;line-height:1.25!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{font-size:13px!important;padding:7px 14px!important}
