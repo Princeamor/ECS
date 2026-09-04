@@ -85,8 +85,10 @@
       drawer.appendChild(controls);
     }
     var actions=[].slice.call(wrapper.querySelectorAll(':scope > .el-button'));
-    if(actions[0]){actions[0].classList.add('ecs-layout-save');drawer.appendChild(actions[0])}
-    if(actions[1]){actions[1].classList.add('ecs-layout-reset');controls.appendChild(actions[1])}
+    var actionBox=controls.querySelector(':scope > .ecs-layout-actions');
+    if(!actionBox){actionBox=document.createElement('div');actionBox.className='ecs-layout-actions';controls.appendChild(actionBox)}
+    if(actions[1]){actions[1].classList.add('ecs-layout-reset');actionBox.appendChild(actions[1])}
+    if(actions[0]){actions[0].classList.add('ecs-layout-save');actionBox.appendChild(actions[0])}
   }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;

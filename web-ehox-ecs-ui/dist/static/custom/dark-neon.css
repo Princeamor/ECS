@@ -67,3 +67,17 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 
 /* Element UI's RTL keyframes translate this panel off-screen; use a fixed centered panel instead. */
 .el-drawer.ecs-layout-settings-drawer,.el-drawer__open .el-drawer.ecs-layout-settings-drawer{position:fixed!important;left:50%!important;right:auto!important;width:min(1180px,calc(100vw - 80px))!important;margin-left:0!important;transform:translateX(-50%)!important;-webkit-transform:translateX(-50%)!important;animation:none!important;-webkit-animation:none!important}
+
+/* Compact the right-side controls and stack actions in a single corner. */
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls{gap:4px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-item{grid-template-columns:minmax(0,1fr) auto!important;column-gap:10px!important;min-height:28px!important;padding:1px 0!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-item>span{margin-right:0!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-switch{margin-left:0!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-save{grid-column:2!important;grid-row:3!important;justify-self:end!important;align-self:end!important;margin:36px 0 0!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-reset{margin:0!important}
+
+/* Keep label-to-switch spacing compact and stack Reset above Save. */
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls{width:min(100%,420px)!important;justify-self:start!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-item{display:flex!important;justify-content:space-between!important;gap:10px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin-top:4px}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-actions .ecs-layout-reset,.el-drawer.ecs-layout-settings-drawer .ecs-layout-actions .ecs-layout-save{margin:0!important;align-self:auto!important}
