@@ -52,3 +52,21 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title{grid-column:2;grid-row:1;margin:0!important;align-self:start}
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{grid-column:2;margin:0!important;padding:6px 0!important;min-height:40px}
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{grid-column:2;justify-self:start;margin:4px 8px 0 0!important}
+
+/* Final workspace layout for the compiled settings panel. */
+.el-drawer.ecs-layout-settings-drawer{width:min(960px,calc(100vw - 320px))!important;height:min(620px,calc(100vh - 156px))!important;margin-left:calc(min(960px,calc(100vw - 320px)) / -2)!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-columns:minmax(340px,1fr) minmax(340px,1fr);grid-template-rows:auto 1fr auto;column-gap:32px;row-gap:16px;padding:24px 28px}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title{grid-column:1/-1;grid-row:1;justify-self:center;text-align:center;font-size:23px!important;text-transform:uppercase}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls{grid-column:1;grid-row:2;align-self:start}
+.el-drawer.ecs-layout-settings-drawer .setting-drawer-content{grid-column:1;grid-row:2;align-self:end;margin:0!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{grid-column:2;margin:0!important;padding:7px 0!important;min-height:43px}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{grid-row:3;margin:0!important;align-self:end}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button:nth-last-child(2){grid-column:1;justify-self:start}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button:last-child{grid-column:2;justify-self:end}
+
+/* Keep the original theme controls inside Interface appearance. */
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-content{grid-column:1/-1;margin:0!important;padding-top:4px}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-title{margin:0 0 8px}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{margin:0!important;font-size:17px!important;text-align:left!important;text-transform:none!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-block-checbox{display:flex;gap:12px}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-item{padding:6px 0!important;min-height:36px}
