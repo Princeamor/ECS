@@ -108,3 +108,8 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 /* Class-based action placement remains stable when the compiled markup changes. */
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-save{grid-column:1!important;grid-row:7!important;justify-self:start!important;align-self:end!important}
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-reset{grid-column:2!important;grid-row:7!important;justify-self:end!important;align-self:end!important}
+
+/* The compiled settings wrapper is the direct div child; these classes set every row deterministically. */
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle{grid-column:2!important;align-self:start!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-save{grid-column:1!important;grid-row:7!important;justify-self:start!important;align-self:end!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-reset{grid-column:2!important;grid-row:7!important;justify-self:end!important;align-self:end!important}
