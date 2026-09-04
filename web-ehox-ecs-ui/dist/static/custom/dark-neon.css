@@ -63,3 +63,7 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 .el-drawer.ecs-layout-settings-drawer{left:50%!important;right:auto!important;width:min(1180px,calc(100vw - 80px))!important;margin-left:calc(min(1180px,calc(100vw - 80px)) / -2)!important}
 .el-drawer.ecs-layout-settings-drawer .ecs-layout-save{grid-column:2!important;grid-row:3!important;justify-self:end!important;margin-right:112px!important}
 .el-drawer.ecs-layout-settings-drawer .ecs-layout-reset{margin-top:0!important}
+
+
+/* Element UI's RTL keyframes translate this panel off-screen; use a fixed centered panel instead. */
+.el-drawer.ecs-layout-settings-drawer,.el-drawer__open .el-drawer.ecs-layout-settings-drawer{position:fixed!important;left:50%!important;right:auto!important;width:min(1180px,calc(100vw - 80px))!important;margin-left:0!important;transform:translateX(-50%)!important;-webkit-transform:translateX(-50%)!important;animation:none!important;-webkit-animation:none!important}
