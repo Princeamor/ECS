@@ -70,7 +70,7 @@
   function organizeLayoutControls(root){
     if(!root||!root.querySelector)return;
     var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
-    var wrapper=drawer&&drawer.firstElementChild;
+    var wrapper=drawer&&drawer.querySelector(':scope > div');
     if(!wrapper)return;
     [].slice.call(wrapper.querySelectorAll(':scope > .drawer-item')).forEach(function(item,index){
       item.classList.add('ecs-layout-toggle');
