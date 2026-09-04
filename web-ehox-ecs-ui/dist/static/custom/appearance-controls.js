@@ -1,10 +1,11 @@
 (function(){
   var key='ecs-appearance-controls';
-  var defaults={background:'#070b14',text:'#ffffff',highlight:'#27a8ff'};
+  var defaults={background:'#070b14',sidebar:'#09111e',text:'#ffffff',highlight:'#27a8ff'};
   function load(){try{return Object.assign({},defaults,JSON.parse(localStorage.getItem(key)||'{}'))}catch(e){return defaults}}
   function apply(colors){
     var root=document.documentElement;
     root.style.setProperty('--ecs-user-background',colors.background);
+    root.style.setProperty('--ecs-user-sidebar',colors.sidebar);
     root.style.setProperty('--ecs-user-text',colors.text);
     root.style.setProperty('--ecs-user-highlight',colors.highlight);
   }
@@ -72,7 +73,7 @@
     if(!drawer)return;
     var colors=load(), panel=document.createElement('section');
     panel.className='ecs-appearance-controls';
-    panel.innerHTML='<h3>Interface appearance</h3><label>Background color <button type="button" class="ecs-color-trigger" data-color="background"></button></label><label>Text color <button type="button" class="ecs-color-trigger" data-color="text"></button></label><label>Highlight color <button type="button" class="ecs-color-trigger" data-color="highlight"></button></label>';
+    panel.innerHTML='<h3>Interface appearance</h3><label>Workspace <button type="button" class="ecs-color-trigger" data-color="background"></button></label><label>Sidebar <button type="button" class="ecs-color-trigger" data-color="sidebar"></button></label><label>Text <button type="button" class="ecs-color-trigger" data-color="text"></button></label><label>Highlight <button type="button" class="ecs-color-trigger" data-color="highlight"></button></label>';
     panel.querySelectorAll('.ecs-color-trigger').forEach(function(trigger){
       var color=trigger.dataset.color;
       trigger.style.backgroundColor=colors[color];
