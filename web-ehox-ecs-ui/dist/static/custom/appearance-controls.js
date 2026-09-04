@@ -70,17 +70,22 @@
   function organizeLayoutControls(root){
     if(!root||!root.querySelector)return;
     var drawer=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
-    var wrapper=drawer&&drawer.querySelector(':scope > div');
-    if(!wrapper)return;
-    [].slice.call(wrapper.querySelectorAll(':scope > .drawer-item')).forEach(function(item,index){
-      item.classList.add('ecs-layout-toggle');
-      item.style.setProperty('grid-row',String(index+2),'important');
-    });
+    if(!drawer)return;
+    var wrapper=drawer.querySelector(':scope > div');
+    var appearance=drawer.querySelector(':scope > .ecs-appearance-controls');
+    if(!wrapper||!appearance)return;
+    var controls=drawer.querySelector(':scope > .ecs-layout-controls');
+    if(!controls){
+      controls=document.createElement('section');
+      controls.className='ecs-layout-controls';
+      var title=wrapper.querySelector(':scope > .drawer-title');
+      if(title)controls.appendChild(title);
+      [].slice.call(wrapper.querySelectorAll(':scope > .drawer-item')).forEach(function(item){controls.appendChild(item)});
+      drawer.appendChild(controls);
+    }
     var actions=[].slice.call(wrapper.querySelectorAll(':scope > .el-button'));
-    actions.forEach(function(button,index){
-      button.classList.add(index===0?'ecs-layout-save':'ecs-layout-reset');
-      button.style.setProperty('grid-row','7','important');
-    });
+    if(actions[0]){actions[0].classList.add('ecs-layout-save');drawer.appendChild(actions[0])}
+    if(actions[1]){actions[1].classList.add('ecs-layout-reset');controls.appendChild(actions[1])}
   }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;

@@ -41,75 +41,20 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 /* Center Layout Settings in the workspace without overriding its opening animation. */
 .el-drawer.ecs-layout-settings-drawer{left:50%!important;right:auto!important;margin-left:-140px!important}
 
-/* Present the compiled Layout Settings controls as a fixed workspace panel. */
-.el-drawer.ecs-layout-settings-drawer{top:128px!important;bottom:auto!important;width:min(820px,calc(100vw - 320px))!important;height:min(720px,calc(100vh - 156px))!important;margin-left:calc(min(820px,calc(100vw - 320px)) / -2)!important;border-radius:10px!important;overflow:hidden!important}
+/* Stable Layout Settings workspace layout. */
+.el-drawer.ecs-layout-settings-drawer{top:92px!important;bottom:auto!important;left:280px!important;right:24px!important;width:auto!important;height:min(650px,calc(100vh - 120px))!important;margin:0!important;border-radius:10px!important;overflow:hidden!important}
 .el-drawer.ecs-layout-settings-drawer .el-drawer__body{overflow:hidden!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container{display:grid;grid-template-columns:minmax(250px,1fr) minmax(280px,1fr);grid-auto-rows:min-content;column-gap:20px;row-gap:10px;height:100%;padding:18px 20px;overflow:hidden!important}
+.el-drawer.ecs-layout-settings-drawer .drawer-container{position:relative;display:grid;grid-template-columns:minmax(360px,1fr) minmax(360px,1fr);grid-template-rows:auto 1fr auto;column-gap:44px;row-gap:16px;height:100%;padding:22px 28px;overflow:hidden!important}
 .el-drawer.ecs-layout-settings-drawer .drawer-container>div{display:contents}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls{grid-column:1;grid-row:1;margin:0!important}
-.el-drawer.ecs-layout-settings-drawer .setting-drawer-content{grid-column:1;grid-row:2}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-divider{display:none!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title{grid-column:2;grid-row:1;margin:0!important;align-self:start}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{grid-column:2;margin:0!important;padding:6px 0!important;min-height:40px}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{grid-column:2;justify-self:start;margin:4px 8px 0 0!important}
-
-/* Final workspace layout for the compiled settings panel. */
-.el-drawer.ecs-layout-settings-drawer{width:min(960px,calc(100vw - 320px))!important;height:min(620px,calc(100vh - 156px))!important;margin-left:calc(min(960px,calc(100vw - 320px)) / -2)!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-columns:minmax(340px,1fr) minmax(340px,1fr);grid-template-rows:auto 1fr auto;column-gap:32px;row-gap:16px;padding:24px 28px}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title{grid-column:1/-1;grid-row:1;justify-self:center;text-align:center;font-size:23px!important;text-transform:uppercase}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls{grid-column:1;grid-row:2;align-self:start}
-.el-drawer.ecs-layout-settings-drawer .setting-drawer-content{grid-column:1;grid-row:2;align-self:end;margin:0!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{grid-column:2;margin:0!important;padding:7px 0!important;min-height:43px}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{grid-row:3;margin:0!important;align-self:end}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button:nth-last-child(2){grid-column:1;justify-self:start}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button:last-child{grid-column:2;justify-self:end}
-
-/* Keep the original theme controls inside Interface appearance. */
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls{grid-column:1;grid-row:2;margin:0!important;align-self:start}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls{display:flex;flex-direction:column;gap:8px;grid-column:2;grid-row:2;align-self:start;min-width:0}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-title{margin:0 0 6px!important;text-align:center!important;font-size:19px!important;line-height:1.2!important;text-transform:uppercase}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-item{display:flex;align-items:center;justify-content:space-between;min-height:32px;margin:0!important;padding:2px 0!important;font-size:14px!important;line-height:1.25!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-controls .drawer-item>span{font-size:14px!important;line-height:1.25!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-save{grid-column:1;grid-row:3;justify-self:start;align-self:end;margin:0!important;font-size:13px!important;padding:7px 14px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-reset{align-self:flex-end;margin-top:8px!important;font-size:13px!important;padding:7px 14px!important}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-content{grid-column:1/-1;margin:0!important;padding-top:4px}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-title{margin:0 0 8px}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{margin:0!important;font-size:17px!important;text-align:left!important;text-transform:none!important}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-block-checbox{display:flex;gap:12px}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-item{padding:6px 0!important;min-height:36px}
-
-/* Dense workspace layout: fill the area from the sidebar to the right edge. */
-.el-drawer.ecs-layout-settings-drawer{left:280px!important;right:24px!important;width:auto!important;height:min(560px,calc(100vh - 150px))!important;margin-left:0!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-columns:minmax(300px,1fr) minmax(300px,1fr);grid-template-rows:auto 1fr auto;column-gap:28px;row-gap:10px;padding:16px 20px}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title{font-size:19px!important;line-height:1.2!important}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls{gap:6px;padding:10px}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls h3{font-size:16px!important}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls label{gap:4px;padding:5px 7px;font-size:12px!important}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-title{margin:0 0 4px}
-.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{font-size:14px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{margin:0!important;font-size:14px!important;text-align:left!important;text-transform:none!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-block-checbox{display:flex;gap:12px}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-item{padding:3px 0!important;min-height:30px;font-size:13px!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{padding:3px 0!important;min-height:31px;font-size:14px!important;line-height:1.25!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-item>span{font-size:14px!important;line-height:1.25!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{font-size:13px!important;padding:7px 14px!important}
-
-/* Keep every system toggle in a compact stack above Reset. */
-.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-rows:auto minmax(0,1fr) auto!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.drawer-title~.drawer-item{align-self:start;margin:0!important;padding:2px 0!important;min-height:29px!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.el-button{grid-row:3!important}
-
-/* Explicit grid rows prevent Reset from occupying the toggle stack. */
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle{grid-column:2!important;align-self:start!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-action{grid-row:7!important;align-self:end!important}
-
-/* Explicit final placement: appearance/Save left; toggles/Reset right. */
-.el-drawer.ecs-layout-settings-drawer{height:min(650px,calc(100vh - 130px))!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container{grid-template-rows:auto repeat(5,min-content) 1fr min-content!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle:nth-of-type(1){grid-row:2!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle:nth-of-type(2){grid-row:3!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle:nth-of-type(3){grid-row:4!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle:nth-of-type(4){grid-row:5!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle:nth-of-type(5){grid-row:6!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-action:nth-last-child(2){grid-column:1!important;grid-row:7!important;justify-self:start!important;align-self:end!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-action:last-child{grid-column:2!important;grid-row:7!important;justify-self:end!important;align-self:end!important}
-
-/* Class-based action placement remains stable when the compiled markup changes. */
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-save{grid-column:1!important;grid-row:7!important;justify-self:start!important;align-self:end!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-reset{grid-column:2!important;grid-row:7!important;justify-self:end!important;align-self:end!important}
-
-/* The compiled settings wrapper is the direct div child; these classes set every row deterministically. */
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-toggle{grid-column:2!important;align-self:start!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-save{grid-column:1!important;grid-row:7!important;justify-self:start!important;align-self:end!important}
-.el-drawer.ecs-layout-settings-drawer .drawer-container>div>.ecs-layout-reset{grid-column:2!important;grid-row:7!important;justify-self:end!important;align-self:end!important}
