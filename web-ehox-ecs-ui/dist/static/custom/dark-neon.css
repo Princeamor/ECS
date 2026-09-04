@@ -58,3 +58,8 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-title{margin:0!important;font-size:14px!important;text-align:left!important;text-transform:none!important}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .setting-drawer-block-checbox{display:flex;gap:12px}
 .el-drawer.ecs-layout-settings-drawer .ecs-appearance-controls .drawer-item{padding:3px 0!important;min-height:30px;font-size:13px!important}
+
+/* Center the workspace panel against the viewport and align both actions together. */
+.el-drawer.ecs-layout-settings-drawer{left:50%!important;right:auto!important;width:min(1180px,calc(100vw - 80px))!important;margin-left:calc(min(1180px,calc(100vw - 80px)) / -2)!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-save{grid-column:2!important;grid-row:3!important;justify-self:end!important;margin-right:112px!important}
+.el-drawer.ecs-layout-settings-drawer .ecs-layout-reset{margin-top:0!important}
