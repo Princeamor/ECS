@@ -46,6 +46,7 @@
     actions.className='ecs-sidebar-account-actions';
     actions.innerHTML='<button type="button" data-action="profile">User settings</button><button type="button" data-action="layout">Layout settings</button><button type="button" data-action="logout">Sign out</button>';
     actions.addEventListener('click',function(event){
+      event.stopPropagation();
       var action=event.target.dataset.action;
       if(!action)return;
       if(action==='profile'){location.href='/user/profile';return}
@@ -53,6 +54,16 @@
       var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store){store.dispatch('LogOut').finally(function(){location.href='/login'})}else{location.href='/login'};
     });
     sidebar.appendChild(actions);
+  }
+  function placeLayoutDrawer(root){
+    if(!root||!root.querySelector)return;
+    var container=root.matches&&root.matches('.drawer-container')?root:root.querySelector('.drawer-container');
+    var sidebar=document.querySelector('.sidebar-container');
+    var drawer=container&&container.closest('.el-drawer');
+    if(!drawer||!sidebar)return;
+    drawer.classList.add('ecs-layout-settings-drawer');
+    drawer.style.setProperty('left',Math.round(sidebar.getBoundingClientRect().right)+'px','important');
+    drawer.style.setProperty('right','auto','important');
   }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;
@@ -87,8 +98,9 @@
     drawer.insertBefore(panel,drawer.firstChild);
   }
   apply(load());
-  function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);addControls(root)}
+  function refresh(root){removeHoverText(root);forceLayoutLabels(root);translateSearchTitles();moveAccountMenu(root);placeLayoutDrawer(root);addControls(root)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){refresh(document)});else refresh(document);
   var searchAttempts=0,searchTimer=setInterval(function(){if(translateSearchTitles()||++searchAttempts>20)clearInterval(searchTimer)},250);
+  window.addEventListener('resize',function(){placeLayoutDrawer(document)});
   new MutationObserver(function(records){records.forEach(function(record){for(var i=0;i<record.addedNodes.length;i++){var node=record.addedNodes[i];if(node.nodeType===1)refresh(node)}})}).observe(document.documentElement,{childList:true,subtree:true});
 })();
