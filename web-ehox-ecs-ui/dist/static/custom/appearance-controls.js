@@ -50,7 +50,7 @@
       var action=event.target.dataset.action;
       if(!action)return;
       if(action==='profile'){location.href='/user/profile';return}
-      if(action==='layout'){var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store)store.dispatch('settings/changeSetting',{key:'showSettings',value:true});return}
+      if(action==='layout'){var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store)setTimeout(function(){store.dispatch('settings/changeSetting',{key:'showSettings',value:true})},0);return}
       var app=document.querySelector('#app'),store=app&&app.__vue__&&app.__vue__.$store;if(store){store.dispatch('LogOut').finally(function(){location.href='/login'})}else{location.href='/login'};
     });
     sidebar.appendChild(actions);
@@ -62,8 +62,9 @@
     var drawer=container&&container.closest('.el-drawer');
     if(!drawer||!sidebar)return;
     drawer.classList.add('ecs-layout-settings-drawer');
-    drawer.style.setProperty('left',Math.round(sidebar.getBoundingClientRect().right)+'px','important');
+    drawer.style.setProperty('left','50%','important');
     drawer.style.setProperty('right','auto','important');
+    drawer.style.setProperty('margin-left','-140px','important');
   }
   function addControls(root){
     if(!root||document.querySelector('.ecs-appearance-controls'))return;

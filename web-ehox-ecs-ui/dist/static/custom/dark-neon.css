@@ -38,5 +38,5 @@ html,body,#app,.app-wrapper,.main-container,.app-main,.el-main{background:var(--
 /* Persistent account actions at the bottom of the left navigation. */
 .sidebar-container .ecs-sidebar-account-actions{position:absolute;left:0;right:0;bottom:12px;padding:10px;border-top:1px solid #2a3d59;background:#09111e;z-index:20}.sidebar-container .ecs-sidebar-account-actions button{display:block;width:100%;padding:11px 18px;border:0;background:transparent;color:#e8f0ff!important;text-align:left;font:600 15px/1.3 Inter,Arial,sans-serif;cursor:pointer}.sidebar-container .ecs-sidebar-account-actions button:hover{background:#14243a;color:#39ff88!important}
 
-/* Keep Layout Settings in the workspace, immediately beside the left navigation. */
-.el-drawer.rtl:has(.drawer-container){left:200px!important;right:auto!important}
+/* Center Layout Settings in the workspace without overriding its opening animation. */
+.el-drawer.ecs-layout-settings-drawer{left:50%!important;right:auto!important;margin-left:-140px!important}
