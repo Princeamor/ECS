@@ -1,0 +1,13 @@
+[Unit]
+Description=Loopback-only shuttle dashboard for SSH tunneling
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -m http.server 8080 --bind 127.0.0.1 --directory /home/PSA/Downloads/abyssws/htdocs
+UMask=0077
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

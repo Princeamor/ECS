@@ -1,0 +1,29 @@
+{
+  "captured_utc_date": "2026-10-08",
+  "scope": "Isolated PSA Show Room test deployment; only downstream URL settings",
+  "parameters": [
+    {"id": 6, "code": "WES_URL", "original": "http://192.168.1.159:8109/api", "simulation": "http://ehox-wes:8092/api"},
+    {"id": 9, "code": "WMS_URL", "original": "http://192.168.1.159:8108/api", "simulation": "http://ehox-wms:8082/api"},
+    {"id": 10, "code": "ECS_URL", "original": "http://192.168.1.159:8060", "simulation": "http://ehox-ecs:8060"}
+  ],
+  "ecs_callback": {
+    "configId": 138,
+    "configKey": "admin.api.wmsUrl.TaskRequest",
+    "original": "http://192.168.1.159:8109",
+    "simulation": "http://ehox-wes:8092"
+  },
+  "repeat_testing_limit": {
+    "id": 13,
+    "code": "PALLET_CAN_MOVE_TIMES",
+    "original": "4",
+    "simulation": "100",
+    "approval": "User explicitly approved raising the isolated-test limit to 100"
+  },
+  "failed_first_submission": {
+    "pallet": "TP001",
+    "from": "1-3-2",
+    "to": "2-3-2",
+    "message": "Failed to push relocation task to middleware",
+    "task_list_after_failure": "No new WMS task visible; preexisting IDs 2 through 6 only"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "tcp_bind": ["127.0.0.1", "192.2.5.1"],
+  "tcp_port": 19080,
+  "http_bind": ["127.0.0.1", "100.119.148.61"],
+  "optional_http_bind": ["100.119.148.61"],
+  "http_port": 8765,
+  "allowed_peers": ["127.0.0.1", "192.2.5.7"],
+  "allowed_origins": [
+    "http://127.0.0.1",
+    "http://localhost",
+    "http://127.0.0.1:8080",
+    "http://localhost:8080",
+    "http://100.119.148.61"
+  ]
+}

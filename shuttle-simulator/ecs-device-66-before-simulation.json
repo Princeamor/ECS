@@ -1,0 +1,19 @@
+{
+  "purpose": "Restore only the fields changed for the isolated shuttle simulation",
+  "captured_utc_date": "2026-10-08",
+  "id": 66,
+  "deviceCode": "A1-1",
+  "type": "A1",
+  "moduleCode": "0",
+  "original": {
+    "ip": "172.30.30.131",
+    "port": "80",
+    "enableStatus": "1",
+    "forceOffline": "2",
+    "mapNode": "C-2-4-2"
+  },
+  "simulation_endpoint": {
+    "ip": "192.2.5.1",
+    "port": "19080"
+  }
+}

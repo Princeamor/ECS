@@ -1,0 +1,14 @@
+[Unit]
+Description=Abyss webserver for the VPN shuttle simulation dashboard
+
+[Service]
+Type=simple
+ExecStart=/home/PSA/Downloads/abyssws/abyssws-x64 -c abyss.conf
+WorkingDirectory=/home/PSA/Downloads/abyssws
+StandardOutput=append:/home/PSA/Downloads/abyssws/log/shuttle-web-service.log
+StandardError=inherit
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

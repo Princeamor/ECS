@@ -1,0 +1,16 @@
+[Unit]
+Description=Isolated Ehox shuttle simulator (never for physical equipment)
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/PSA/Downloads/abyssws/shuttle-simulator/simulator.py --isolated-test --config /home/PSA/Downloads/abyssws/shuttle-simulator/config.json --data-dir /home/PSA/.local/share/shuttle-simulator
+WorkingDirectory=/home/PSA/Downloads/abyssws/shuttle-simulator
+UMask=0077
+StandardOutput=append:/home/PSA/.local/share/shuttle-simulator/service.log
+StandardError=inherit
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

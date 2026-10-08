@@ -6,5 +6,11 @@
 artifacts/**/application*.yml
 artifacts/**/configs/**
 artifacts/**/configs/
+/shuttle-simulator/__pycache__/
+/shuttle-simulator/*.pyc
+/shuttle-simulator/access-token
+/shuttle-simulator/*.sqlite3*
+/shuttle-simulator/service.log
+/shuttle-simulator/backups/
 artifacts/**/application*.yml
 artifacts/**/configs/

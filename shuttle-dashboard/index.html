@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Isolated Shuttle Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="protocol-decoder.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header>
+    <div><span class="eyebrow">EHOX INTEGRATION TESTING</span><h1>Shuttle Simulator</h1></div>
+    <span class="badge">SIMULATION ONLY</span>
+  </header>
+  <main>
+    <aside class="warning">
+      No physical shuttle is controlled. Simulated feedback can advance ECS/WES/WMS
+      tasks and test inventory. Use only with isolated test databases and equipment networks.
+      Unsupported messages are logged and faulted, never reported as successful.
+    </aside>
+    <section class="card">
+      <h2>Dashboard connection</h2>
+      <p>Abyss hosts this page; the Python service handles the binary shuttle protocol.
+        The API is restricted to localhost and this machine's VPN address.
+        Without Tailscale, use an SSH tunnel to open
+        <code>http://127.0.0.1:8080/shuttle-simulator/</code>; the API uses
+        <code>http://127.0.0.1:8765</code>. Both ports must be forwarded.</p>
+      <form id="connect-form" class="row">
+        <label class="grow">API URL<input id="api-url" type="url" required></label>
+        <label class="grow">Local simulator token<input id="token" type="password" autocomplete="off" required></label>
+        <button type="submit">Connect dashboard</button>
+      </form>
+      <p class="hint">Run this command in your own terminal:
+        <code>cat ~/.local/share/shuttle-simulator/access-token</code>.
+        Copy the random text it prints into the token box above, not the command itself.
+        It is held only in this page's memory, not saved to browser storage.</p>
+      <p id="error" role="alert" hidden></p>
+    </section>
+    <section class="card">
+      <div class="row spread">
+        <h2>Conveyor / hoist PLC writes (read-only)</h2>
+        <button id="plc-download" class="secondary" type="button" disabled>Download PLC write log</button>
+      </div>
+      <p id="plc-status" role="status">Connect to load recorded PLC writes.</p>
+      <p class="hint">ECS logs register/tag names, addresses, written values and driver
+        success/failure in its PLC snapshots. Collection runs every five seconds,
+        even with this page closed. The download includes all retained writes and
+        source/coverage information. No PLC commands are sent by this dashboard.
+        An empty log is not proof of successful communication or movement.</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Local time / tag</th><th>Address / written value</th><th>Driver result</th></tr></thead>
+          <tbody id="plc-events"></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="stats" aria-label="Live simulator state">
+      <div class="card"><span>Simulator</span><strong id="armed">NOT CONNECTED</strong></div>
+      <div class="card"><span>ECS TCP sessions</span><strong id="sessions">Unknown</strong></div>
+      <div class="card"><span>Position / battery</span><strong id="position">Unknown</strong></div>
+      <div class="card"><span>Protocol task / completed count</span><strong id="task">Unknown</strong></div>
+    </section>
+    <div class="columns">
+      <section class="card">
+        <h2>1. Configure an isolated test shuttle</h2>
+        <p>Match the numeric shuttle ID and protocol mode to the ECS test device.
+          Supply the enabled test-map nodes explicitly; no warehouse map is assumed.</p>
+        <form id="configure-form">
+          <div class="fields">
+            <label>Shuttle number (A1-N)<input id="car-number" type="number" min="1" max="255" value="1" required></label>
+            <label>Protocol mode byte<input id="mode" type="number" min="0" max="255" value="0" required></label>
+            <label>Initial X<input id="x" type="number" min="0" max="255" value="0" required></label>
+            <label>Initial Y<input id="y" type="number" min="0" max="255" value="0" required></label>
+            <label>Initial Z<input id="z" type="number" min="0" max="255" value="1" required></label>
+            <label>Battery (%)<input id="soc" type="number" min="0" max="100" value="90" required></label>
+            <label>Seconds per instruction<input id="command-seconds" type="number" min="0.2" max="60" step="0.1" value="1" required></label>
+          </div>
+          <label>Enabled test-map nodes (one x,y,z per line)
+            <textarea id="nodes" rows="7" placeholder="Enter nodes from your isolated ECS test map" required></textarea>
+          </label>
+          <button type="submit" disabled id="configure">Save configuration</button>
+        </form>
+      </section>
+      <section class="card">
+        <h2>2. Test feedback</h2>
+        <p id="feedback">Connect the dashboard to see simulator status.</p>
+        <label class="check"><input type="checkbox" id="isolation">
+          I confirm the connected ECS/WES/WMS deployment is isolated from real
+          equipment and production inventory.</label>
+        <div class="controls">
+          <button data-action="arm" disabled>Arm simulated feedback</button>
+          <button data-action="disarm" class="secondary" disabled>Disarm / disconnect</button>
+          <button data-action="pause" class="secondary" disabled>Pause task</button>
+          <button data-action="resume" class="secondary" disabled>Resume task</button>
+          <button data-action="cancel" class="secondary" disabled>Cancel task</button>
+          <button data-action="fault" class="danger" disabled>Inject test fault</button>
+          <button data-action="recover" class="secondary" disabled>Recover fault</button>
+        </div>
+        <p class="hint">Recovery leaves unfinished work paused until you resume.
+          Restarting the service always disarms feedback. Only one TCP client is accepted.</p>
+        <h3>ECS endpoint</h3>
+        <p>In the isolated ECS device configuration, use
+          <code>192.2.5.1:19080</code> instead of the equipment endpoint.
+          The browser URL and webserver port are not the shuttle endpoint.</p>
+        <p class="hint">This service accepts ECS peer <code>192.2.5.7</code> and
+          localhost only. No ECS device records or warehouse databases are edited
+          by this dashboard.</p>
+      </section>
+    </div>
+    <section class="card">
+      <h2>3. Enter WMS tasks and follow the workflow</h2>
+      <p>Use the warehouse applications with your own sign-in. This dashboard does
+        not store warehouse credentials, submit inventory changes, or force task completion.</p>
+      <nav class="controls" aria-label="Warehouse workflow">
+        <a class="button-link" href="http://100.119.148.61:8108/stock/view" target="_blank" rel="noopener">Enter a WMS relocation</a>
+        <a class="button-link secondary" href="http://100.119.148.61:8108/task/move" target="_blank" rel="noopener">WMS tasks</a>
+        <a class="button-link secondary" href="http://100.119.148.61:8109/middle/moveCommand" target="_blank" rel="noopener">WES instructions</a>
+        <a class="button-link secondary" href="http://100.119.148.61:8050/business/task" target="_blank" rel="noopener">ECS tasks</a>
+      </nav>
+      <ol>
+        <li>Select <strong>PSA Show Room</strong> in WMS, then the second floor.</li>
+        <li>Select the occupied test pallet, choose its relocation action, and select
+          the available destination. The configured test pair is
+          <code>1-3-2</code> and <code>2-3-2</code>.</li>
+        <li>Submit once. Follow the WMS <code>MOV...</code> task code through WES
+          and ECS. Check all three applications for completion and the updated pallet location.</li>
+        <li>Use the application exchanges below and the simulator journal to
+          diagnose a waiting or failed task. A heartbeat or socket write alone is not success.</li>
+      </ol>
+      <p class="hint">Only same-floor test relocations are supported here.
+        Inbound/outbound conveyors and hoists are not emulated. The user-approved
+        isolated-test pallet relocation limit is 100; the dashboard does not reset or bypass it.</p>
+      <p id="workflow-verification" role="status">Connect to load the last verified workflow result.</p>
+      <div class="row spread">
+        <h3>Application exchanges (read-only)</h3>
+        <button id="workflow-download" class="secondary" type="button" disabled>Download workflow snapshot</button>
+      </div>
+      <p id="workflow-status" role="status">Not connected.</p>
+      <p class="hint">Bounded, sanitized excerpts from WMS/WES/ECS server logs,
+        refreshed every five seconds. These are historical log observations, not
+        live database status. Application timestamps are server-local; simulator
+        timestamps are UTC. Full binary history remains in the JSONL journal.</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Service / local time</th><th>Exchange / task</th><th>Details</th></tr></thead>
+          <tbody id="workflow-events"></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="card">
+      <div class="row spread">
+        <h2>Isolated simulator self-test</h2>
+        <button id="self-test" disabled>Run self-test</button>
+      </div>
+      <p>Checks a separate shuttle over a temporary localhost TCP connection:
+        heartbeat, acknowledgements, movement, pause/resume, faults, duplicate
+        protection, packet validation, and logging. It does not send commands to
+        ECS or change the connected shuttle or warehouse records.</p>
+      <p id="self-test-summary" role="status">Not run yet.</p>
+      <p class="hint">Passing this test does not prove the complete WMS/WES/ECS integration.</p>
+      <table>
+        <thead><tr><th>Check</th><th>Result</th><th>Details</th></tr></thead>
+        <tbody id="self-test-results"></tbody>
+      </table>
+    </section>
+    <section class="card">
+      <div class="row spread">
+        <div><h2>Message journal</h2><p id="journal-status">No journal loaded.</p></div>
+        <div class="controls">
+          <button id="tcp-download" class="secondary" disabled>Download shuttle TCP log</button>
+          <button id="download" class="secondary" disabled>Download full JSONL journal</button>
+          <a class="button-link secondary" href="shuttle-offline-decoder.st" download>Download offline Structured Text decoder</a>
+        </div>
+      </div>
+      <label class="check"><input id="task-only" type="checkbox" checked>
+        Task-focused view (hide routine heartbeat and socket-write traffic)</label>
+      <p class="hint">UTC timestamps, peer addresses, raw receive chunks, decoded frames,
+        transmit attempts, completed writes, state transitions, and errors are stored
+        outside the web root. A completed socket write is not proof ECS accepted a message.
+        The table shows the latest 300 events; downloads include the complete journal snapshot.
+        The TCP download includes both directions, heartbeats, connection events and protocol
+        errors regardless of the task-focused checkbox. Raw hex is application TCP payload,
+        not a packet capture with TCP/IP headers. TCP exports now include a
+        <code>translation</code> for complete frames while preserving original hex.
+        The Structured Text example decodes fields only, has no network or actuator
+        outputs, and must be adapted and compiled for your PLC vendor. It is not the
+        original shuttle program and is not suitable for controlling equipment.</p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Sequence / UTC</th><th>Event</th><th>Payload / details</th></tr></thead>
+          <tbody id="events"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer><img src="../pwrabyss.gif" alt="Powered by Abyss Web Server">
+    Isolated shuttle protocol test harness. Not a PLC or safety-system emulator.</footer>
+</body>
+</html>
