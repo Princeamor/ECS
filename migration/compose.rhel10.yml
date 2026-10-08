@@ -1,0 +1,121 @@
+name: ehox-local
+
+services:
+  mysql:
+    image: mysql:8.0.46
+    container_name: mysql
+    restart: unless-stopped
+    env_file:
+      - /data/apps/infrastructure.env
+    command: ["--default-authentication-plugin=mysql_native_password"]
+    ports: ["127.0.0.1:3306:3306"]
+    volumes:
+      - /data/1panel/apps/mysql/mysql/data:/var/lib/mysql:Z
+      - /data/1panel/apps/mysql/mysql/log:/var/log/mysql:Z
+      - /data/1panel/apps/mysql/mysql/conf/my.cnf:/etc/my.cnf:ro,Z
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.9
+        aliases: [ehox-chitu-mysql]
+
+  redis:
+    image: redis:7.4.10
+    container_name: redis
+    restart: unless-stopped
+    command: ["redis-server", "/etc/redis/redis.conf", "--requirepass", "${REDIS_PASSWORD:?Set REDIS_PASSWORD in the private env file}"]
+    ports: ["127.0.0.1:6379:6379"]
+    volumes:
+      - /data/1panel/apps/redis/redis/conf/redis.conf:/etc/redis/redis.conf:ro,Z
+      - /data/1panel/apps/redis/redis/logs:/logs:Z
+      - /data/1panel/apps/redis/redis/data:/data:Z
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.8
+        aliases: [ehox-chitu-redis]
+
+  ehox-ecs:
+    image: jnhub.joomladay.net/base/jre:21.0.11-jammy-dos
+    container_name: ehox-ecs
+    restart: unless-stopped
+    ports: ["127.0.0.1:8060:8060"]
+    volumes:
+      - /data/apps/ehox-ecs:/opt/apps:Z
+    command: ["/bin/sh", "/opt/apps/startup.sh"]
+    mem_limit: 4500m
+    cpus: 2
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.7
+
+  ehox-wms:
+    image: jnhub.joomladay.net/base/jre:21.0.11-jammy-dos
+    container_name: ehox-wms
+    restart: unless-stopped
+    ports: ["127.0.0.1:8082:8082"]
+    volumes:
+      - /data/apps/ehox-wms:/opt/apps:Z
+    command: ["/bin/sh", "/opt/apps/startup.sh"]
+    mem_limit: 4500m
+    cpus: 2
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.3
+
+  ehox-wes:
+    image: jnhub.joomladay.net/base/jre:21.0.11-jammy-dos
+    container_name: ehox-wes
+    restart: unless-stopped
+    ports: ["127.0.0.1:8092:8092"]
+    volumes:
+      - /data/apps/ehox-wes:/opt/apps:Z
+    command: ["/bin/sh", "/opt/apps/startup.sh"]
+    mem_limit: 4500m
+    cpus: 2
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.4
+
+  web-ehox-ecs-ui:
+    image: jnhub.joomladay.net/base/nginx:1.24.0
+    container_name: web-ehox-ecs-ui
+    restart: unless-stopped
+    ports: ["127.0.0.1:8050:80"]
+    volumes:
+      - /data/apps/web-ehox-ecs-ui/dist:/data/webroot/dist:ro,Z
+      - /data/apps/configs/ecs-web.conf:/etc/nginx/conf.d/default.conf:ro,Z
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.2
+
+  web-ehox-wms-ui:
+    image: jnhub.joomladay.net/base/nginx:1.24.0
+    container_name: web-ehox-wms-ui
+    restart: unless-stopped
+    ports: ["127.0.0.1:8108:80"]
+    volumes:
+      - /data/apps/web-ehox-wms-ui/dist:/data/webroot/dist:ro,Z
+      - /data/apps/configs/wms-web.conf:/etc/nginx/conf.d/default.conf:ro,Z
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.5
+
+  web-ehox-wes-ui:
+    image: jnhub.joomladay.net/base/nginx:1.24.0
+    container_name: web-ehox-wes-ui
+    restart: unless-stopped
+    ports: ["127.0.0.1:8109:80"]
+    volumes:
+      - /data/apps/web-ehox-wes-ui/dist:/data/webroot/dist:ro,Z
+      - /data/apps/configs/wes-web.conf:/etc/nginx/conf.d/default.conf:ro,Z
+    networks:
+      ehox-net:
+        ipv4_address: 192.2.5.6
+
+networks:
+  ehox-net:
+    name: ehox-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.2.5.0/24
+          gateway: 192.2.5.1

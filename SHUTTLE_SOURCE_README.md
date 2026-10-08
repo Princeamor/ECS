@@ -4,6 +4,7 @@ This repository snapshot contains the locally developed Ehox shuttle simulator,
 dashboard and recovery documentation. It is not a full deployed-VM backup.
 
 - [Operational handoff](SHUTTLE_SIMULATOR_HANDOFF.md)
+- [Online RHEL 10 migration steps](RHEL10_MIGRATION_HANDOFF.md)
 - [Historical move runbook](PALLET_SHUTTLE_MOVE_RUNBOOK.md)
 - `shuttle-simulator/`: Python service, tests, configuration, rollback records
 - `shuttle-dashboard/`: browser UI, protocol decoder/tests and offline ST example

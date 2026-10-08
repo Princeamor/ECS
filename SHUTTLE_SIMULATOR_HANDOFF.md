@@ -1,5 +1,8 @@
 # Ehox isolated shuttle simulator: handoff and recovery
 
+For copying all workspace work to a local Red Hat 10 machine while this source
+stays running, use [the online migration guide](RHEL10_MIGRATION_HANDOFF.md).
+
 Prepared 2026-10-08 UTC for PSA. This is an operational handoff, not physical
 equipment commissioning approval. The companion historical
 [move runbook](PALLET_SHUTTLE_MOVE_RUNBOOK.md) contains earlier investigations;
@@ -411,8 +414,10 @@ Use the exact generated filename rather than the placeholder.
 | Service stops on logout/reboot | PSA lingering disabled; administrator decision required |
 
 Git identity was configured as Princeamor; repository remote is
-`https://github.com/Princeamor/ECS.git`. SSH GitHub authentication was not
-verified. This deployment has unrelated existing changes; do not bulk revert,
+`https://github.com/Princeamor/ECS.git`. GitHub push of commit `276f379` to
+`shuttle-simulator-handoff-20261008` was verified on 2026-10-08 using the new
+local SSH key. That key/passphrase is not part of the migration. This deployment
+has unrelated existing changes; do not bulk revert,
 commit credentials or claim all changes are committed. No commit is made by this
 handoff creation step. The archive and checksum are the recovery artifacts.
 
