@@ -13,6 +13,13 @@
 
 ## Completed changes
 
+### Table readability follow-up (2026-10-10 UTC)
+
+- Fixed white-on-white vehicle rows, table headers, and pagination in the dark theme.
+- Added scoped table surface rules in `dark-neon.css` so the later-loaded `modern.css` cannot restore light headers beneath white text.
+- Deployed the stylesheet to `/data/apps/web-ehox-ecs-ui/dist/static/custom/dark-neon.css`. Refresh cached styles when validating.
+- Verified A1-1 remains listed, with default header contrast of 17.08:1 and row contrast of 18.42:1. Vehicle data and edit permissions were not changed.
+
 ### Login and shared visual theme
 
 Existing custom assets were retained and used instead of modifying the compiled Vue bundles:

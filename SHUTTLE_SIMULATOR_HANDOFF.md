@@ -8,6 +8,33 @@ equipment commissioning approval. The companion historical
 [move runbook](PALLET_SHUTTLE_MOVE_RUNBOOK.md) contains earlier investigations;
 this handoff supersedes its old test counts and historical location statements.
 
+## Physical showroom correction (2026-10-10)
+
+The restored two-floor layout did not match the single-floor PSA showroom.
+With the backends stopped and the shuttle isolated, the operator applied a
+guarded database migration and supplied its successful commit/verification output:
+
+- WMS warehouse 1 storage IDs 37-48 and matching ECS nodes now use floor 1.
+  The overlapping placeholder storage IDs 25-36 were soft-deleted; their ECS
+  nodes were removed after backup.
+- X/Y, node types, directions, tag counts and pallet data were preserved.
+  TP001 remains linked to storage ID 39, now `1-3-1`.
+- After the operator confirmed onsite verification of floor-2 calibration,
+  its 15 entries within X1-3/Y1-4 were moved to floor 1 with unchanged distances.
+  Conflicting floor-1 entries were backed up and removed. Calibration outside
+  that grid and other warehouses were not changed.
+- The live ECS map configuration now has `max_z=1`. Historical task records
+  and video records retain their original coordinates.
+- Task `MOV20261010000004` was canceled through the normal ECS notification
+  after repairing its callback to `http://ehox-wes:8092`; WMS cancellation was
+  verified before migration.
+
+Changed rows are backed up in MySQL database `psa_floor1_backup_20261010`.
+Do not restore historical floor-2 simulator maps or replay old task coordinates
+into this physical installation. Database verification is complete; live UI
+verification after restart and physical commissioning remain separate checks.
+The simulator snapshots below are historical, not the current physical layout.
+
 ## 1. Executive summary and boundaries
 
 The warehouse software is Ehox WMS/WES/ECS, implemented in Java/Spring Boot,

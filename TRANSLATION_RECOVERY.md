@@ -10,8 +10,13 @@ They translate rendered UI text. They do not patch backend JARs, database values
 equipment protocols or login logic. The source machine loads each with:
 
 ```html
-<script src="/static/custom/i18n-en.js?v=6"></script>
+<script src="/static/custom/i18n-en.js?v=7"></script>
 ```
+
+The tracked WMS and WES entrypoints now include this script reference. During
+the 2026-10-10 recovery, the overlays matched the mounted server image, but the
+cloned entrypoints omitted the reference, leaving map legends and menu labels
+untranslated. Restore the reference rather than rewriting the translation files.
 
 On the destination, update the separate reference clone, not the dirty deployed
 repository:
